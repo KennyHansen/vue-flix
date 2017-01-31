@@ -3,6 +3,30 @@
   var fs = new FlixService()  
 
 
+  Vue.component('movie-details', {
+    props:['detail'],
+    template: 
+      `<div><img :src="detail.poster" width="100">
+          <h3>{{detail.show_title}}</h3>
+          <p>
+            <b>Director:</b> {{detail.director}},
+            <b>Runtime:</b> {{detail.runtime}},
+          </p>
+          <p>
+            <b>Ratings:</b> {{detail.rating}},
+            <b>Released:</b> {{detail.release_year}},
+            <b>Category:</b> {{detail.category}}
+          </p>
+          <p>
+            <b>Summary:</b> {{detail.summary}}
+          </p>
+          <p>
+            <b>Cast:</b> {{detail.show_cast}}
+          </p>
+      </div>`
+  })
+
+
   new Vue({
     el: '#vue-flix',
     data: function(){
@@ -67,5 +91,5 @@
       }
     }
   })
-  
+
 }())

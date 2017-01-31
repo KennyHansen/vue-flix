@@ -32,23 +32,7 @@
       <div class="col-sm-12">
         <div class="panel-body">
           <div v-if="details.show_title">
-            <img :src="details.poster" width="100">
-            <h3>{{details.show_title}}</h3>
-            <p>
-              <b>Director:</b> {{details.director}},
-              <b>Runtime:</b> {{details.runtime}},
-            </p>
-            <p>
-              <b>Ratings:</b> {{details.rating}},
-              <b>Released:</b> {{details.release_year}},
-              <b>Category:</b> {{details.category}}
-            </p>
-            <p>
-              <b>Summary:</b> {{details.summary}}
-            </p>
-            <p>
-              <b>Cast:</b> {{details.show_cast}}
-            </p>
+            <movie-details :detail="details"></movie-details>
             <button @click="clearDetails">BACK</button>
           </div>
 
@@ -61,7 +45,7 @@
               <h3>RESULTS</h3>
               <p>Now Viewing result for {{query}}</p>
             </div>
-            <div >
+            <div>
               <ul class="list-group" v-if="!details.show_title">
                 <li class="list-group-item" v-for="movie in movies">
                   <img :src="movie.poster" height="150" @click="setDetails(movie)">
@@ -90,15 +74,16 @@
         </div>
       </div>
     </div>
+  </div>
 
 
 
-    <!--LOAD LIBRARIES-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
+  <!--LOAD LIBRARIES-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
 
-    <!--SERVICES-->
-    <script src="app/services/flix-services.js"></script>
-    <script src="app/main.js"></script>
+  <!--SERVICES-->
+  <script src="app/services/flix-services.js"></script>
+  <script src="app/main.js"></script>
 
 
 </body>
