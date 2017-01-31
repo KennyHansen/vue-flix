@@ -8,8 +8,9 @@
     data: function(){
       return {
         category: 'actor',
-        query: '',
+        query: 'Jack Black',
         movies: [],
+        myMovies: [],
         details: {}
       }
     },
@@ -27,13 +28,42 @@
       reset: function(){
         this.query = ''
         this.category = '',
-        this.movies = []
+        this.movies = [],
+        this.myMovies = []
       },
       setDetails: function(movie){
         this.details = movie
       },
       clearDetails: function(){
         this.details = {}
+      },
+      addToWatchlist: function(movieName){
+        var myMovies = this.myMovies
+        var movies = this.movies
+        var hasMovie = false
+
+        myMovies.forEach((movie)=>{
+          if (movie.show_title == movieName) {
+            hasMovie = true
+          }
+        })
+        if (!hasMovie) {
+          movies.forEach((movie)=>{
+            if (movie.show_title == movieName) {
+              myMovies.push(movie)
+              return
+            }
+          })
+        }
+      },
+      removeFromWatchlist(movieName) {
+        var myMovies = this.myMovies
+        myMovies.forEach((movie,i)=>{
+          if (movie.show_title == movieName) {
+            myMovies.splice(i, 1)
+            return
+          }
+        })
       }
     }
   })

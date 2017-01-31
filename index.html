@@ -29,67 +29,79 @@
     </div>
 
     <div class="row">
-      <div class="col-sm-9">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3>RESULTS</h3>
-            <p>Now Viewing result for {{query}}</p>
-
+      <div class="col-sm-12">
+        <div class="panel-body">
+          <div v-if="details.show_title">
+            <img :src="details.poster" width="100">
+            <h3>{{details.show_title}}</h3>
+            <p>
+              <b>Director:</b> {{details.director}},
+              <b>Runtime:</b> {{details.runtime}},
+            </p>
+            <p>
+              <b>Ratings:</b> {{details.rating}},
+              <b>Released:</b> {{details.release_year}},
+              <b>Category:</b> {{details.category}}
+            </p>
+            <p>
+              <b>Summary:</b> {{details.summary}}
+            </p>
+            <p>
+              <b>Cast:</b> {{details.show_cast}}
+            </p>
+            <button @click="clearDetails">BACK</button>
+            <button @click="addToWatchlist(details.show_title)">Add to Watchlist</button>
           </div>
-          <div class="panel-body">
-            <div v-if="details.show_title">
-              <img :src="details.poster" width="100">
-              <h3>{{details.show_title}}</h3>
-              <p>
-                <b>Director:</b> {{details.director}},
-                <b>Runtime:</b> {{details.runtime}},
-              </p>
-              <p>
-                <b>Ratings:</b> {{details.rating}},
-                <b>Released:</b> {{details.release_year}},
-                <b>Category:</b> {{details.category}}
-              </p>
-              <p>
-                <b>Summary:</b> {{details.summary}}
-              </p>
-              <p>
-                <b>Cast:</b> {{details.show_cast}}
-              </p>
-              <button @click="clearDetails">BACK</button>
-            </div>
 
-            <div v-if="movies.length > 0">
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-8" v-if="movies.length > 0">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>RESULTS</h3>
+              <p>Now Viewing result for {{query}}</p>
+            </div>
+            <div >
               <ul class="list-group" v-if="!details.show_title">
-                <li class="list-group-item" v-for="movie in movies" @click="setDetails(movie)">
-                  <img :src="movie.poster" height="150">
+                <li class="list-group-item" v-for="movie in movies">
+                  <img :src="movie.poster" height="150" @click="setDetails(movie)">
                   <h4>{{movie.show_title}}</h4>
+                  <button @click="addToWatchlist(movie.show_title)">Add to Watchlist</button>
                 </li>
               </ul>
             </div>
-
           </div>
         </div>
-      </div>
-      <div class="col-sm-3">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3>MY FAVORITES</h3>
-            <p>Now Viewing favorites for {{query}}</p>
+
+        <div class="col-sm-4" v-if="myMovies.length > 0">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3>MY WATCHLIST</h3>
+              <p>Now Viewing watchlist</p>
+              <!--<div v-if="myMovies.length > 0">-->
+              <ul class="list-group" v-if="!details.show_title">
+                <li class="list-group-item" v-for="movie in myMovies">
+                  <img :src="movie.poster" height="150" @click="setDetails(movie)">
+                  <h4>{{movie.show_title}}</h4>
+                  <button @click="removeFromWatchlist(movie.show_title)">Remove from Watchlist</button>
+                </li>
+              </ul>
+            </div>
+            <!--</div>-->
           </div>
         </div>
       </div>
     </div>
 
-  </div>
 
 
+    <!--LOAD LIBRARIES-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.js"></script>
 
-  <!--LOAD LIBRARIES-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
-
-  <!--SERVICES-->
-  <script src="app/services/flix-services.js"></script>
-  <script src="app/main.js"></script>
+    <!--SERVICES-->
+    <script src="app/services/flix-services.js"></script>
+    <script src="app/main.js"></script>
 
 
 </body>
