@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>VueFlix</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+
+  <div id="vue-flix">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h1>FIND YOUR FLIX</h1>
+      </div>
+      <div class="panel-body">
+        <button @click="reset">RESET EVERYTING</button>
+        <form @submit.prevent="search">
+          <select v-model="category">
+            <option value="actor">Actor</option>
+            <option value="director">Director</option>
+            <option value="title">Title</option>
+          </select>
+          <input type="text" v-model="query" />
+          <button type="submit">FIND</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-9">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>RESULTS</h3>
+            <p>Now Viewing result for {{query}}</p>
+
+          </div>
+          <div class="panel-body">
+            <div v-if="details.show_title">
+              <img :src="details.poster" width="100">
+              <h3>{{details.show_title}}</h3>
+              <p>
+                <b>Director:</b> {{details.director}},
+                <b>Runtime:</b> {{details.runtime}},
+              </p>
+              <p>
+                <b>Ratings:</b> {{details.rating}},
+                <b>Released:</b> {{details.release_year}},
+                <b>Category:</b> {{details.category}}
+              </p>
+              <p>
+                <b>Summary:</b> {{details.summary}}
+              </p>
+              <p>
+                <b>Cast:</b> {{details.show_cast}}
+              </p>
+              <button @click="clearDetails">BACK</button>
+            </div>
+
+            <div v-if="movies.length > 0">
+              <ul class="list-group" v-if="!details.show_title">
+                <li class="list-group-item" v-for="movie in movies" @click="setDetails(movie)">
+                  <img :src="movie.poster" height="150">
+                  <h4>{{movie.show_title}}</h4>
+                </li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3>MY FAVORITES</h3>
+            <p>Now Viewing favorites for {{query}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+  <!--LOAD LIBRARIES-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.10/vue.min.js"></script>
+
+  <!--SERVICES-->
+  <script src="app/services/flix-services.js"></script>
+  <script src="app/main.js"></script>
+
+
+</body>
+
+</html>
