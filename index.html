@@ -44,6 +44,12 @@
                 <div v-if="details.show_title">
                   <movie-details :detail="details"></movie-details>
                   <button @click="clearDetails">BACK</button>
+                  <div v-if="!details.isOnWatchlist">
+                    <button @click="addToWatchlist(details)">Add to Watchlist</button>
+                  </div>
+                  <div v-if="details.isOnWatchlist">
+                    <button @click="removeFromWatchlist(details)">Remove from Watchlist</button>
+                  </div>
                 </div>
 
               </div>
