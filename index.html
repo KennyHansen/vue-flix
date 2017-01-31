@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
-<body class="container">
+<body class="container-fluid">
 
   <div id="vue-flix">
     <div class="panel panel-default">
@@ -30,13 +30,7 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <div class="panel-body">
-          <div v-if="details.show_title">
-            <movie-details :detail="details"></movie-details>
-            <button @click="clearDetails">BACK</button>
-          </div>
 
-        </div>
       </div>
       <div class="row">
         <div class="col-sm-8" v-if="movies.length > 0">
@@ -46,11 +40,18 @@
               <p>Now Viewing result for {{query}}</p>
             </div>
             <div>
+              <div class="panel-body">
+                <div v-if="details.show_title">
+                  <movie-details :detail="details"></movie-details>
+                  <button @click="clearDetails">BACK</button>
+                </div>
+
+              </div>
               <ul class="list-group" v-if="!details.show_title">
                 <li class="list-group-item" v-for="movie in movies">
                   <img :src="movie.poster" height="150" @click="setDetails(movie)">
                   <h4>{{movie.show_title}}</h4>
-                  <button @click="addToWatchlist(movie.show_title)">Add to Watchlist</button>
+                  <button @click="addToWatchlist(movie)">Add to Watchlist</button>
                 </li>
               </ul>
             </div>
@@ -61,12 +62,12 @@
           <div class="panel panel-default">
             <div class="panel-heading">
               <h3>MY WATCHLIST</h3>
-              <p>Now Viewing watchlist</p>
-              <ul class="list-group" v-if="!details.show_title">
+              <p>Now Viewing watchlist. Current faves: {{myMovies.length}}</p>
+              <ul class="list-group">
                 <li class="list-group-item" v-for="movie in myMovies">
                   <img :src="movie.poster" height="150" @click="setDetails(movie)">
                   <h4>{{movie.show_title}}</h4>
-                  <button @click="removeFromWatchlist(movie.show_title)">Remove from Watchlist</button>
+                  <button @click="removeFromWatchlist(movie)">Remove from Watchlist</button>
                 </li>
               </ul>
             </div>

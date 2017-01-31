@@ -27,7 +27,7 @@
   })
 
 
-  new Vue({
+  var vm = new Vue({
     el: '#vue-flix',
     data: function(){
       return {
@@ -61,33 +61,16 @@
       clearDetails: function(){
         this.details = {}
       },
-      addToWatchlist: function(movieName){
-        var myMovies = this.myMovies
-        var movies = this.movies
-        var hasMovie = false
-
-        myMovies.forEach((movie)=>{
-          if (movie.show_title == movieName) {
-            hasMovie = true
-          }
-        })
-        if (!hasMovie) {
-          movies.forEach((movie)=>{
-            if (movie.show_title == movieName) {
-              myMovies.push(movie)
-              return
-            }
-          })
-        }
+      addToWatchlist: function(movie){
+        if(!movie.isOnWatchlist){
+          this.myMovies.push(movie)
+          movie.isOnWatchlist = true
+        } 
       },
-      removeFromWatchlist(movieName) {
-        var myMovies = this.myMovies
-        myMovies.forEach((movie,i)=>{
-          if (movie.show_title == movieName) {
-            myMovies.splice(i, 1)
-            return
-          }
-        })
+      removeFromWatchlist(movie) {
+        var i = this.myMovies.indexOf(movie)
+        this.myMovies.splice(i, 1)
+        movie.isOnWatchlist = false
       }
     }
   })
